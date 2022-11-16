@@ -64,10 +64,8 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" +
-                "Name='" + name + '\'' +
-                ", Gender='" + gender + '\'' +
-                '}';
+        return "Name='" + name + '\'' +
+                ", Gender='" + gender + '\'';
     }
     //endregion
 }

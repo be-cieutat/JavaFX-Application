@@ -26,7 +26,7 @@ public class DBManager {
     }
     public Connection Connector(){
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/student?serverTimezone=Europe%2FParis", "root","mdp");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/student?serverTimezone=Europe%2FParis", "root","La_Tour_2018");
             return connection;
         }
         catch (Exception e) {
