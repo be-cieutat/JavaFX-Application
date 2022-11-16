@@ -142,7 +142,8 @@ public class StudentController implements Initializable {
     }
 
     public void onSave() {
-        Student s = new Student(txtName.getText(),cmbGender.getValue(),txtEmail.getText(),datpickBirthdate.getValue(),txtMark.getText(),txtareaComments.getText());
+        //Student s = new Student(txtName.getText(),cmbGender.getValue(),txtEmail.getText(),datpickBirthdate.getValue(),txtMark.getText(),txtareaComments.getText());
+        Student s = new Student(txtName.getText(),cmbGender.getValue(),txtEmail.getText());
         manager.addStudent(s);
         fetchStudents();
     }

@@ -88,6 +88,18 @@ public class Student {
 
     //region Constructors
 
+    public Student(String name, String gender,String email) {
+        this.id = -1;
+        this.name = name;
+        this.gender = gender;
+        this.email = email;
+        this.birthDate = birthDate;
+        this.photo = photo;
+        this.mark = mark;
+        this.comments = comments;
+    }
+
+
     public Student(String name, String gender,String email,LocalDate birthDate,String photo,double mark, String comments) {
         this.id = -1;
         this.name = name;
