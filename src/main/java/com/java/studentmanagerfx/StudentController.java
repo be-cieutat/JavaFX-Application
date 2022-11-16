@@ -14,7 +14,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -113,8 +115,6 @@ public class StudentController implements Initializable {
 
         //region Students list
         List<Student> hardStudents = new ArrayList<>();
-        hardStudents.add(new Student(1, "lolo", "female"));
-        hardStudents.add(new Student(2, "lili", "male"));
         ObservableList<Student> students = FXCollections.observableArrayList(hardStudents);
         lvListofstudents.setItems(students);
 
@@ -142,7 +142,7 @@ public class StudentController implements Initializable {
     }
 
     public void onSave() {
-        Student s= new Student( txtName.getText(),cmbGender.getValue());
+        Student s = new Student(txtName.getText(),cmbGender.getValue(),txtEmail.getText(),datpickBirthdate.getValue(),txtMark.getText(),txtareaComments.getText());
         manager.addStudent(s);
         fetchStudents();
     }

@@ -29,6 +29,26 @@ public class Student {
     public String getGender() {
         return this.gender;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public double getMark() {
+        return mark;
+    }
+
+    public String getComments() {
+        return comments;
+    }
     //endregion
 
     //region Setters
@@ -68,15 +88,25 @@ public class Student {
 
     //region Constructors
 
-    public Student(String name, String gender) {
+    public Student(String name, String gender,String email,LocalDate birthDate,String photo,double mark, String comments) {
+        this.id = -1;
         this.name = name;
         this.gender = gender;
+        this.email = email;
+        this.birthDate = birthDate;
+        this.photo = photo;
+        this.mark = mark;
+        this.comments = comments;
     }
 
-    public Student(int id, String name, String gender) {
-        this.id = id;
+    public Student(int id_student, String name, String gender,String email,LocalDate birthDate,String photo,double mark, String comments) {
         this.name = name;
         this.gender = gender;
+        this.email = email;
+        this.birthDate = birthDate;
+        this.photo = photo;
+        this.mark = mark;
+        this.comments = comments;
     }
 
     //endregion
