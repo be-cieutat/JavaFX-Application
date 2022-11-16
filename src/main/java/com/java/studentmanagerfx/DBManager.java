@@ -1,6 +1,7 @@
 package com.java.studentmanagerfx;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class DBManager {
             String sql = "select * from studenttable";
             ResultSet myRs= myStmt.executeQuery(sql);
             while (myRs.next()) {
-                Student s= new Student(myRs.getInt("id_student"),myRs.getString("name"), myRs.getString("gender"));
+                Student s= new Student(myRs.getInt("id_student"),myRs.getString("name"), myRs.getString("gender"), myRs.getString("email"), myRs.getDate("birthdate").toLocalDate(), myRs.getString("photo"),myRs.getDouble("mark"), myRs.getString("comments"));
                 studentAll.add(s);
             }
             this.close(myConn, myStmt, myRs);

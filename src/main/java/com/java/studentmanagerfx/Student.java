@@ -32,6 +32,27 @@ public class Student {
     //endregion
 
     //region Setters
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public void setMark(double mark) {
+        this.mark = mark;
+    }
+
+    public void setComments(String comments) {
+        this.comments = comments;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -64,8 +85,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Name='" + name + '\'' +
-                ", Gender='" + gender + '\'';
+        return "Name:" + name ;
     }
     //endregion
 }

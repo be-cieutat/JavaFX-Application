@@ -104,8 +104,9 @@ public class StudentController implements Initializable {
 
         //region Gender
         List<String> gvalues = new ArrayList<String>();
-        gvalues.add("Male");
-        gvalues.add("Female");
+        gvalues.add("male");
+        gvalues.add("female");
+        gvalues.add("other");
         ObservableList<String> gender = FXCollections.observableArrayList(gvalues);
         cmbGender.setItems(gender);
         //endregion Gender
