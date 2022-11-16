@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import java.net.URL;
@@ -115,10 +116,12 @@ public class StudentController implements Initializable {
 
         //region Students list
         List<Student> hardStudents = new ArrayList<>();
+        hardStudents.add(new Student("Boyan", "lolo", "boyan@cooldude.bg", "google.url",4.3,"Boyan is a cool dude"));
+        hardStudents.add(new Student("1", "lili", "male"));
         ObservableList<Student> students = FXCollections.observableArrayList(hardStudents);
         lvListofstudents.setItems(students);
 
-        fetchStudents();
+        //fetchStudents();
 
         lvListofstudents.getSelectionModel().selectedItemProperty().addListener(e -> displayStudentDetails(lvListofstudents.getSelectionModel().getSelectedItem()));
         //endregion Students list
@@ -128,6 +131,12 @@ public class StudentController implements Initializable {
         if (selectedStudent != null) {
             txtName.setText(selectedStudent.getName());
             cmbGender.setValue(selectedStudent.getGender());
+            txtEmail.setText(selectedStudent.getEmail());
+            datpickBirthdate.setValue(selectedStudent.getBirthDate());
+            txtMark.setText(String.format("%d",selectedStudent.getMark()));
+            txtareaComments.setText(selectedStudent.getComments());
+            Image image = new Image(getClass().getResourceAsStream(selectedStudent.getPhoto()));
+            imvPhoto.setImage(image);
         }
     }
 
@@ -142,7 +151,7 @@ public class StudentController implements Initializable {
     }
 
     public void onSave() {
-        Student s = new Student(txtName.getText(),cmbGender.getValue(),txtEmail.getText(),datpickBirthdate.getValue(),txtMark.getText(),txtareaComments.getText());
+        Student s = new Student(txtName.getText(),cmbGender.getValue(),txtEmail.getText(),imvPhoto.getImage().getUrl(), Double.parseDouble(txtMark.getText()),txtareaComments.getText());
         manager.addStudent(s);
         fetchStudents();
     }
