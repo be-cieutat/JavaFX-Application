@@ -4,27 +4,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -130,9 +119,9 @@ public class StudentController implements Initializable {
         cmbGender.setItems(gender);
         //endregion Gender
 
-        //region Students list
+        //region hardcode Students list
         List<Student> hardStudents = new ArrayList<>();
-        hardStudents.add(new Student("Boyan", "lolo", "boyan@cooldude.bg", "google.url",4.3,"Boyan is a cool dude"));
+        hardStudents.add(new Student("Boyan", "lolo", "boyan@cooldude.bg", LocalDate.parse("2020-01-08"), "https://post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/02/322868_1100-800x825.jpg",4.3,"Boyan is a cool dude"));
         hardStudents.add(new Student("1", "lili", "male"));
         ObservableList<Student> students = FXCollections.observableArrayList(hardStudents);
         lvListofstudents.setItems(students);
@@ -164,6 +153,9 @@ public class StudentController implements Initializable {
         txtareaComments.setDisable(true);
         datpickBirthdate.setDisable(true);
         //endregion fieldDisable
+
+        lblWarning.setVisible(false);
+        lblUpdate();
     }
 
     private void displayStudentDetails(Student selectedStudent) throws MalformedURLException, FileNotFoundException {
@@ -180,26 +172,66 @@ public class StudentController implements Initializable {
     }
 
     public void onNew(){
+
         lvListofstudents.getSelectionModel().clearSelection();
-        this.txtName=null;
+        txtName.setText("");
         this.cmbGender.setValue(null);
+        this.txtEmail.setText("");
+        this.txtMark.setText("0");
+        this.datpickBirthdate.setValue(LocalDate.now());
+        Image image = new Image("https://clipartmag.com/images/outline-of-person-2.png");
+        this.imvPhoto.setImage(image);
+        this.txtareaComments.setText("");
+
+        //region buttonDisable
+        btnEdit.setDisable(true);
+        btnSave.setDisable(false);
+        btnDelete.setDisable(true);
+        btnCancel.setDisable(false);
+        //endregion buttonDisable
+
+        //region fieldDisable
+        txtName.setDisable(false);
+        cmbGender.setDisable(false);
+        txtEmail.setDisable(false);
+        txtMark.setDisable(false);
+        txtareaComments.setDisable(false);
+        datpickBirthdate.setDisable(false);
+        //endregion fieldDisable
+
+        fetchStudents();
+    }
+
+    public void onEdit(){
+
+        //region buttonDisable
+        btnAddnewstudent.setDisable(true);
+        btnCancel.setDisable(false);
+        btnDelete.setDisable(false);
+        btnSave.setDisable(false);
+        //endregion buttonDisable
+
+        //region fieldDisable
+        txtName.setDisable(false);
+        cmbGender.setDisable(false);
+        txtEmail.setDisable(false);
+        txtMark.setDisable(false);
+        txtareaComments.setDisable(false);
+        datpickBirthdate.setDisable(false);
+        //endregion fieldDisable
+
+    }
+
+    public void onDelete(){
+        manager.delStudent(lvListofstudents.getSelectionModel().getSelectedItem());
+        fetchStudents();
+        onCancel();
+        lblUpdate();
+
     }
 
     public void onCancel(){
         lvListofstudents.getSelectionModel().selectFirst();
-    }
-
-    public void onSave() {
- pacomeTest
-        if (txtName.getText() != "" && cmbGender.getValue() != null){
-            //Student s = new Student(txtName.getText(),cmbGender.getValue(),txtEmail.getText(),imvPhoto.getImage().getUrl(), Double.parseDouble(txtMark.getText()),txtareaComments.getText());
-            //manager.addStudent(s);
-            fetchStudents();
-        }
-        else{
-            lblWarning.setDisable(false);
-
-        }
 
         //region buttonDisable
         btnSave.setDisable(true);
@@ -208,6 +240,45 @@ public class StudentController implements Initializable {
         btnDelete.setDisable(true);
         btnCancel.setDisable(true);
         //endregion buttonDisable
+
+        //region fieldDisable
+        txtName.setDisable(true);
+        cmbGender.setDisable(true);
+        txtEmail.setDisable(true);
+        txtMark.setDisable(true);
+        txtareaComments.setDisable(true);
+        datpickBirthdate.setDisable(true);
+        //endregion fieldDisable
+
+        lblWarning.setVisible(false);
+        lblUpdate();
+
+    }
+
+    public void onSave() {
+        if (txtName.getText().isEmpty() == false && txtName.getText() != "" && cmbGender.getValue() != null){
+            if (btnAddnewstudent.isDisabled() == true){
+                manager.delStudent(lvListofstudents.getSelectionModel().getSelectedItem());
+            }
+            Student s = new Student(txtName.getText(),cmbGender.getValue(),txtEmail.getText(),datpickBirthdate.getValue(),imvPhoto.getImage().getUrl(), Double.parseDouble(txtMark.getText()),txtareaComments.getText());
+            manager.addStudent(s);
+            fetchStudents();
+
+            //region buttonDisable
+            btnSave.setDisable(true);
+            btnEdit.setDisable(false);
+            btnAddnewstudent.setDisable(false);
+            btnDelete.setDisable(true);
+            btnCancel.setDisable(true);
+            lblWarning.setVisible(false);
+            //endregion buttonDisable
+        }
+        else{
+            lblWarning.setVisible(true);
+
+        }
+
+        lblUpdate();
     }
 
     public void fetchStudents() {
@@ -218,4 +289,11 @@ public class StudentController implements Initializable {
             lvListofstudents.setItems(students);
         }
     }
+
+    public void lblUpdate(){
+        lblAverageValue.setText(String.valueOf(manager.avgMarkStudents()));
+        lblCountValue.setText(String.valueOf(manager.countStudents()));
+    }
+
 }
+

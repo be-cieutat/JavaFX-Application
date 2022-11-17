@@ -95,8 +95,6 @@ public class Student {
     }
 
     public Student(String name, String gender,String email, LocalDate birthDate, String photo,double mark, String comments) {
-
-        this.id = -1;
         this.name = name;
         this.gender = gender;
         this.email = email;
@@ -107,6 +105,7 @@ public class Student {
     }
 
     public Student(int id_student, String name, String gender,String email,LocalDate birthDate,String photo,double mark, String comments) {
+        this.id=id_student;
         this.name = name;
         this.gender = gender;
         this.email = email;
@@ -122,7 +121,7 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Name:" + name ;
+        return  "name : " + this.name + ", mark : " + this.mark;
     }
     //endregion
 }
