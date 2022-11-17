@@ -106,7 +106,7 @@ public class DBManager {
             myRs = myStmt.executeQuery();
             myRs.next();
             count = myRs.getInt(1);
-            System.out.println(count);
+            //System.out.println(count);
         }
         catch(Exception e){
             System.out.println(e.getMessage());
@@ -129,7 +129,7 @@ public class DBManager {
             myRs = myStmt.executeQuery();
             myRs.next();
             avg = myRs.getDouble(1);
-            System.out.println(avg);
+            //System.out.println(avg);
         }
         catch(Exception e){
             System.out.println(e.getMessage());

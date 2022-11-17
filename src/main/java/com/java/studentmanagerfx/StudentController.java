@@ -180,7 +180,7 @@ public class StudentController implements Initializable {
         this.cmbGender.setValue(null);
         this.txtEmail.setText("");
         this.txtMark.setText("0");
-        this.datpickBirthdate.setValue(LocalDate.now());
+        this.datpickBirthdate.setValue(LocalDate.parse("1980-01-01"));
         Image image = new Image("https://clipartmag.com/images/outline-of-person-2.png");
         this.imvPhoto.setImage(image);
         this.txtareaComments.setText("");
@@ -258,7 +258,7 @@ public class StudentController implements Initializable {
     }
 
     public void onSave() {
-        if (txtName.getText().isEmpty() == false && txtName.getText() != "" && cmbGender.getValue() != null){
+        if (txtName.getText().isEmpty() == false && txtName.getText() != "" && cmbGender.getValue() != null && datpickBirthdate.getValue().isBefore(LocalDate.parse("2000-12-31") ) && datpickBirthdate.getValue().isAfter(LocalDate.parse("1980-01-01") )){
             if (btnAddnewstudent.isDisabled() == true){
                 manager.delStudent(lvListofstudents.getSelectionModel().getSelectedItem());
             }
