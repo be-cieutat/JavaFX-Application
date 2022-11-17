@@ -87,6 +87,9 @@ public class StudentController implements Initializable {
     private Label lblPhoto;
 
     @FXML
+    private Label lblWarning;
+
+    @FXML
     private Label lblStudentdetails;
 
     @FXML
@@ -140,6 +143,21 @@ public class StudentController implements Initializable {
             }
         });
         //endregion Students list
+
+        //region buttonDisable
+        btnSave.setDisable(true);
+        btnDelete.setDisable(true);
+        btnCancel.setDisable(true);
+        //endregion buttonDisable
+
+        //region fieldDisable
+        txtName.setDisable(true);
+        cmbGender.setDisable(true);
+        txtEmail.setDisable(true);
+        txtMark.setDisable(true);
+        txtareaComments.setDisable(true);
+        datpickBirthdate.setDisable(true);
+        //endregion fieldDisable
     }
 
     private void displayStudentDetails(Student selectedStudent) throws MalformedURLException, FileNotFoundException {
@@ -166,9 +184,23 @@ public class StudentController implements Initializable {
     }
 
     public void onSave() {
-        Student s = new Student(txtName.getText(),cmbGender.getValue(),txtEmail.getText(),imvPhoto.getImage().getUrl(), Double.parseDouble(txtMark.getText()),txtareaComments.getText());
-        manager.addStudent(s);
-        fetchStudents();
+        if (txtName.getText() != "" && cmbGender.getValue() != null){
+            //Student s = new Student(txtName.getText(),cmbGender.getValue(),txtEmail.getText(),imvPhoto.getImage().getUrl(), Double.parseDouble(txtMark.getText()),txtareaComments.getText());
+            //manager.addStudent(s);
+            fetchStudents();
+        }
+        else{
+            lblWarning.setDisable(false);
+
+        }
+
+        //region buttonDisable
+        btnSave.setDisable(true);
+        btnEdit.setDisable(false);
+        btnAddnewstudent.setDisable(false);
+        btnDelete.setDisable(true);
+        btnCancel.setDisable(true);
+        //endregion buttonDisable
     }
 
     public void fetchStudents() {

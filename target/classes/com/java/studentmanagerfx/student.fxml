@@ -39,8 +39,8 @@
       <Label fx:id="lblMark" layoutX="294.0" layoutY="276.0" text="Mark" />
       <Label fx:id="lblComments" layoutX="290.0" layoutY="331.0" prefHeight="26.0" prefWidth="68.0" text="Comments " />
       <Button fx:id="btnAddnewstudent" layoutX="47.0" layoutY="448.0" mnemonicParsing="false" onAction="#onNew" text="Add new student" />
-      <Button fx:id="btnDelete" layoutX="340.0" layoutY="448.0" mnemonicParsing="false" text="Delete" />
-      <Button fx:id="btnEdit" layoutX="290.0" layoutY="448.0" mnemonicParsing="false" text="Edit" />
+      <Button fx:id="btnDelete" layoutX="340.0" layoutY="448.0" mnemonicParsing="false" onAction="#onDelete" text="Delete" />
+      <Button fx:id="btnEdit" layoutX="290.0" layoutY="448.0" mnemonicParsing="false" onAction="#onEdit" text="Edit" />
       <Button fx:id="btnSave" layoutX="489.0" layoutY="448.0" mnemonicParsing="false" onAction="#onSave" text="Save" />
       <Button fx:id="btnCancel" layoutX="536.0" layoutY="448.0" mnemonicParsing="false" onAction="#onCancel" text="Cancel" />
       <Label fx:id="lblPhoto" layoutX="480.0" layoutY="62.0" text="Photo" />
