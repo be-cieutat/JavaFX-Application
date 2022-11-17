@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -166,6 +167,7 @@ public class StudentController implements Initializable {
             datpickBirthdate.setValue(selectedStudent.getBirthDate());
             txtareaComments.setText(selectedStudent.getComments());
             txtMark.setText(String.valueOf(selectedStudent.getMark()));
+            //System.out.println(selectedStudent.getPhoto());
             Image image = new Image(selectedStudent.getPhoto());
             imvPhoto.setImage(image);
         }
@@ -291,7 +293,8 @@ public class StudentController implements Initializable {
     }
 
     public void lblUpdate(){
-        lblAverageValue.setText(String.valueOf(manager.avgMarkStudents()));
+        DecimalFormat df = new DecimalFormat("0.00");
+        lblAverageValue.setText(String.valueOf(df.format(manager.avgMarkStudents())));
         lblCountValue.setText(String.valueOf(manager.countStudents()));
     }
 
