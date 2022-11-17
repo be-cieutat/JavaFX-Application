@@ -95,6 +95,7 @@ public class Student {
     }
 
     public Student(String name, String gender,String email, LocalDate birthDate, String photo,double mark, String comments) {
+
         this.id = -1;
         this.name = name;
         this.gender = gender;

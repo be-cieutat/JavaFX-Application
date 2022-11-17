@@ -190,6 +190,7 @@ public class StudentController implements Initializable {
     }
 
     public void onSave() {
+ pacomeTest
         if (txtName.getText() != "" && cmbGender.getValue() != null){
             //Student s = new Student(txtName.getText(),cmbGender.getValue(),txtEmail.getText(),imvPhoto.getImage().getUrl(), Double.parseDouble(txtMark.getText()),txtareaComments.getText());
             //manager.addStudent(s);
