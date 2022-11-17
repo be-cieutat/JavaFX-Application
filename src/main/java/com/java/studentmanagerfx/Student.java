@@ -94,12 +94,12 @@ public class Student {
         this.email = email;
     }
 
-    public Student(String name, String gender,String email,/*LocalDate,*/String photo,double mark, String comments) {
+    public Student(String name, String gender,String email, LocalDate birthDate, String photo,double mark, String comments) {
         this.id = -1;
         this.name = name;
         this.gender = gender;
         this.email = email;
-        //this.birthDate = birthDate;
+        this.birthDate = birthDate;
         this.photo = photo;
         this.mark = mark;
         this.comments = comments;

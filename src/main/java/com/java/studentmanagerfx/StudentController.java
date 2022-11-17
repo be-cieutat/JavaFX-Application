@@ -14,7 +14,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -121,21 +128,29 @@ public class StudentController implements Initializable {
         ObservableList<Student> students = FXCollections.observableArrayList(hardStudents);
         lvListofstudents.setItems(students);
 
-        //fetchStudents();
+        fetchStudents();
 
-        lvListofstudents.getSelectionModel().selectedItemProperty().addListener(e -> displayStudentDetails(lvListofstudents.getSelectionModel().getSelectedItem()));
+        lvListofstudents.getSelectionModel().selectedItemProperty().addListener(e -> {
+            try {
+                displayStudentDetails(lvListofstudents.getSelectionModel().getSelectedItem());
+            } catch (MalformedURLException ex) {
+                throw new RuntimeException(ex);
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         //endregion Students list
     }
 
-    private void displayStudentDetails(Student selectedStudent) {
+    private void displayStudentDetails(Student selectedStudent) throws MalformedURLException, FileNotFoundException {
         if (selectedStudent != null) {
             txtName.setText(selectedStudent.getName());
             cmbGender.setValue(selectedStudent.getGender());
             txtEmail.setText(selectedStudent.getEmail());
             datpickBirthdate.setValue(selectedStudent.getBirthDate());
-            txtMark.setText(String.format("%d",selectedStudent.getMark()));
             txtareaComments.setText(selectedStudent.getComments());
-            Image image = new Image(getClass().getResourceAsStream(selectedStudent.getPhoto()));
+            txtMark.setText(String.valueOf(selectedStudent.getMark()));
+            Image image = new Image(selectedStudent.getPhoto());
             imvPhoto.setImage(image);
         }
     }
