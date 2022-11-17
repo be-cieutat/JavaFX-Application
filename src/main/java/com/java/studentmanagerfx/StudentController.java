@@ -63,6 +63,15 @@ public class StudentController implements Initializable {
     private Label lblAverage;
 
     @FXML
+    private Label lblAverageValue;
+
+    @FXML
+    private Label lblCount;
+
+    @FXML
+    private Label lblCountValue;
+
+    @FXML
     private Label lblBirthdate;
 
     @FXML
@@ -94,9 +103,6 @@ public class StudentController implements Initializable {
 
     @FXML
     private ListView<Student> lvListofstudents;
-
-    @FXML
-    private TextField  txtAverage;
 
     @FXML
     private TextField txtEmail;
