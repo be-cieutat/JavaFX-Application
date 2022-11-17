@@ -11,9 +11,17 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,6 +63,15 @@ public class StudentController implements Initializable {
     private Label lblAverage;
 
     @FXML
+    private Label lblAverageValue;
+
+    @FXML
+    private Label lblCount;
+
+    @FXML
+    private Label lblCountValue;
+
+    @FXML
     private Label lblBirthdate;
 
     @FXML
@@ -79,13 +96,13 @@ public class StudentController implements Initializable {
     private Label lblPhoto;
 
     @FXML
+    private Label lblWarning;
+
+    @FXML
     private Label lblStudentdetails;
 
     @FXML
     private ListView<Student> lvListofstudents;
-
-    @FXML
-    private TextField  txtAverage;
 
     @FXML
     private TextField txtEmail;
@@ -115,19 +132,50 @@ public class StudentController implements Initializable {
 
         //region Students list
         List<Student> hardStudents = new ArrayList<>();
+        hardStudents.add(new Student("Boyan", "lolo", "boyan@cooldude.bg", "google.url",4.3,"Boyan is a cool dude"));
+        hardStudents.add(new Student("1", "lili", "male"));
         ObservableList<Student> students = FXCollections.observableArrayList(hardStudents);
         lvListofstudents.setItems(students);
 
         fetchStudents();
 
-        lvListofstudents.getSelectionModel().selectedItemProperty().addListener(e -> displayStudentDetails(lvListofstudents.getSelectionModel().getSelectedItem()));
+        lvListofstudents.getSelectionModel().selectedItemProperty().addListener(e -> {
+            try {
+                displayStudentDetails(lvListofstudents.getSelectionModel().getSelectedItem());
+            } catch (MalformedURLException ex) {
+                throw new RuntimeException(ex);
+            } catch (FileNotFoundException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         //endregion Students list
+
+        //region buttonDisable
+        btnSave.setDisable(true);
+        btnDelete.setDisable(true);
+        btnCancel.setDisable(true);
+        //endregion buttonDisable
+
+        //region fieldDisable
+        txtName.setDisable(true);
+        cmbGender.setDisable(true);
+        txtEmail.setDisable(true);
+        txtMark.setDisable(true);
+        txtareaComments.setDisable(true);
+        datpickBirthdate.setDisable(true);
+        //endregion fieldDisable
     }
 
-    private void displayStudentDetails(Student selectedStudent) {
+    private void displayStudentDetails(Student selectedStudent) throws MalformedURLException, FileNotFoundException {
         if (selectedStudent != null) {
             txtName.setText(selectedStudent.getName());
             cmbGender.setValue(selectedStudent.getGender());
+            txtEmail.setText(selectedStudent.getEmail());
+            datpickBirthdate.setValue(selectedStudent.getBirthDate());
+            txtareaComments.setText(selectedStudent.getComments());
+            txtMark.setText(String.valueOf(selectedStudent.getMark()));
+            Image image = new Image(selectedStudent.getPhoto());
+            imvPhoto.setImage(image);
         }
     }
 
@@ -142,10 +190,24 @@ public class StudentController implements Initializable {
     }
 
     public void onSave() {
-        //Student s = new Student(txtName.getText(),cmbGender.getValue(),txtEmail.getText(),datpickBirthdate.getValue(),txtMark.getText(),txtareaComments.getText());
-        Student s = new Student(txtName.getText(),cmbGender.getValue(),txtEmail.getText());
-        manager.addStudent(s);
-        fetchStudents();
+ pacomeTest
+        if (txtName.getText() != "" && cmbGender.getValue() != null){
+            //Student s = new Student(txtName.getText(),cmbGender.getValue(),txtEmail.getText(),imvPhoto.getImage().getUrl(), Double.parseDouble(txtMark.getText()),txtareaComments.getText());
+            //manager.addStudent(s);
+            fetchStudents();
+        }
+        else{
+            lblWarning.setDisable(false);
+
+        }
+
+        //region buttonDisable
+        btnSave.setDisable(true);
+        btnEdit.setDisable(false);
+        btnAddnewstudent.setDisable(false);
+        btnDelete.setDisable(true);
+        btnCancel.setDisable(true);
+        //endregion buttonDisable
     }
 
     public void fetchStudents() {
