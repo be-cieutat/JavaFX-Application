@@ -89,6 +89,9 @@ public class StudentController implements Initializable {
     private Label lblWarning;
 
     @FXML
+    private Label lblWarningdate;
+
+    @FXML
     private Label lblStudentdetails;
 
     @FXML
@@ -156,6 +159,7 @@ public class StudentController implements Initializable {
         //endregion fieldDisable
 
         lblWarning.setVisible(false);
+        lblWarningdate.setVisible(false);
         lblUpdate();
     }
 
@@ -253,27 +257,35 @@ public class StudentController implements Initializable {
         //endregion fieldDisable
 
         lblWarning.setVisible(false);
+        lblWarningdate.setVisible(false);
         lblUpdate();
 
     }
 
     public void onSave() {
-        if (txtName.getText().isEmpty() == false && txtName.getText() != "" && cmbGender.getValue() != null && datpickBirthdate.getValue().isBefore(LocalDate.parse("2000-12-31") ) && datpickBirthdate.getValue().isAfter(LocalDate.parse("1980-01-01") )){
-            if (btnAddnewstudent.isDisabled() == true){
-                manager.delStudent(lvListofstudents.getSelectionModel().getSelectedItem());
-            }
-            Student s = new Student(txtName.getText(),cmbGender.getValue(),txtEmail.getText(),datpickBirthdate.getValue(),imvPhoto.getImage().getUrl(), Double.parseDouble(txtMark.getText()),txtareaComments.getText());
-            manager.addStudent(s);
-            fetchStudents();
+        if (txtName.getText().isEmpty() == false && txtName.getText() != "" && cmbGender.getValue() != null ){
+            if(datpickBirthdate.getValue().isBefore(LocalDate.parse("2001-01-01") ) && datpickBirthdate.getValue().isAfter(LocalDate.parse("1979-12-31") )){
+                if (btnAddnewstudent.isDisabled() == true){
+                    manager.delStudent(lvListofstudents.getSelectionModel().getSelectedItem());
+                }
+                Student s = new Student(txtName.getText(),cmbGender.getValue(),txtEmail.getText(),datpickBirthdate.getValue(),imvPhoto.getImage().getUrl(), Double.parseDouble(txtMark.getText()),txtareaComments.getText());
+                manager.addStudent(s);
+                fetchStudents();
 
-            //region buttonDisable
-            btnSave.setDisable(true);
-            btnEdit.setDisable(false);
-            btnAddnewstudent.setDisable(false);
-            btnDelete.setDisable(true);
-            btnCancel.setDisable(true);
-            lblWarning.setVisible(false);
-            //endregion buttonDisable
+                //region buttonDisable
+                btnSave.setDisable(true);
+                btnEdit.setDisable(false);
+                btnAddnewstudent.setDisable(false);
+                btnDelete.setDisable(true);
+                btnCancel.setDisable(true);
+                lblWarning.setVisible(false);
+                lblWarningdate.setVisible(false);
+                //endregion buttonDisable
+            }
+            else{
+                lblWarningdate.setVisible(true);
+            }
+
         }
         else{
             lblWarning.setVisible(true);
